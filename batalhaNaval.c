@@ -4,11 +4,119 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
-int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
     // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+
+    #include <stdio.h>
+
+int menu_direcao(){
+
+    int menu;
+
+    printf("Em qual sentido deseja inserir o navio?\n");
+    printf("1 - Horizontal.\n");
+    printf("2 - Vertical.\n");
+    printf("3 - diagonal.\n");
+    scanf("%d", &menu);
+
+    return menu;
+
+}
+
+int main(){
+    int opcao;
+    int rep = 0;   
+    int linha;
+    int coluna;
+    int tabuleiro[10][10] = {
+                                
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0},
+                                {0,0,0,0,0,0,0,0,0,0}
+                                
+                            };
+
+// Nesta etapa eu vou exibir o tabuleiro completamente preenchido por 0, representando a água.
+
+    for(int i = 0 ; i < 10 ; i++){
+            for(int j = 0 ; j < 10 ; j++){
+
+                printf("%d ", tabuleiro[i][j]);
+            }
+            printf("\n");
+        }
+    while(rep != 2){
+    // Nessa etapa vou selecionar 
+
+        opcao = menu_direcao();
+
+        if(opcao == 1){
+            
+            printf("selecione a linha onde quer posicionar o navio\n");
+            scanf("%d", &linha);
+            printf("selecione a coluna onde quer posicionar o navio\n");
+            scanf("%d", &coluna);
+
+            if( (coluna > 8 || coluna < 1) || (tabuleiro[linha - 1][coluna - 1] == 3 && tabuleiro[linha - 1][coluna] == 3 && tabuleiro[linha - 1][coluna + 1] == 3) ) {
+
+                printf("A posicao selecionada é inválida ou excede as casas do tabuleiro..");
+
+            }else{
+
+            for(int j = coluna ; j < coluna + 3 ; j++){
+
+                tabuleiro[linha - 1][j - 1] = 3;
+            }
+
+            for(int i = 0 ; i < 10 ; i++){
+                for(int j = 0 ; j < 10 ; j++){
+
+                    printf("%d ", tabuleiro[i][j]);
+                }
+                printf("\n");
+            }
+
+            }
+        }else if(opcao == 2){
+
+            printf("selecione a linha onde quer posicionar o navio\n");
+            scanf("%d", &linha);
+            printf("selecione a coluna onde quer posicionar o navio\n");
+            scanf("%d", &coluna);
+
+            if( linha > 8 || linha < 1 || tabuleiro[linha - 1][coluna - 1] == 3 || tabuleiro[linha][coluna - 1] == 3 || tabuleiro[linha + 1][coluna - 1] == 3){
+
+
+                printf("A posicao selecionada é inválida ou excede as casas do tabuleiro..");
+            
+            }else{
+                for(int i = linha ; i < linha + 3 ; i++){
+                    
+                    tabuleiro[i - 1][coluna - 1] = 3;
+                }
+
+                for(int i = 0 ; i < 10 ; i++){
+                    for(int j = 0 ; j < 10 ; j++){
+
+                        printf("%d ", tabuleiro[i][j]);
+                    }
+                    printf("\n");
+                }        
+            }   
+        }
+
+        rep++;
+    }
+}
 
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
@@ -35,6 +143,3 @@ int main() {
     // 0 0 1 0 0
     // 1 1 1 1 1
     // 0 0 1 0 0
-
-    return 0;
-}
