@@ -122,7 +122,131 @@ int main(){
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
     // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
     // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+#include <stdio.h>
 
+int menu(){
+    int escolha;
+
+    printf("------BATALHA NAVAL------\n");
+    printf("Selecione o sentido que deseja posicionar o navio:\n");
+    printf("1 - Horizontal.\n");
+    printf("2 - Vertical.\n");
+    printf("3 - Diagonal.\n\n");
+    scanf("%d", &escolha);
+
+    if(escolha > 3 || escolha < 1){
+        printf("Selecione uma opcao valida...\n\n");
+
+    }else{
+        return escolha;  
+    }
+}
+
+int cordlinha(){
+    int i;
+
+    printf("Digite a coordenada da linha onde deseja posicionar o navio:");
+    scanf("%d", &i);
+
+    return i;
+}
+
+int cordcoluna(){
+    int j;
+
+    printf("Digite a coordenada da coluna onde deseja posicionar o navio:");
+    scanf("%d", &j);
+
+    return j;
+}
+
+int main(){
+    int tabuleiro[10][10];
+    int linha;
+    int opcao;
+    int coluna;
+
+//tabuleiro
+    for(int i = 0 ; i < 10 ; i++){
+        for(int j = 0 ; j < 10 ; j++){
+            tabuleiro[i][j] = 0;
+
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
+//Menu de selecao de posicionamento do navio
+    int rep = 0;
+
+    while(rep < 4){
+        opcao = menu();
+        
+        if(opcao == 1){
+            linha = cordlinha();
+            coluna = cordcoluna();
+                if(tabuleiro[linha - 1][coluna - 1] == 3 || tabuleiro[linha - 1][coluna] == 3 || tabuleiro[linha - 1][coluna + 1] == 3 || linha > 10 || linha < 1 || coluna < 1 || coluna > 8){
+                    printf("Posicao invalida...\n");
+
+                }else{
+                    for(int i = coluna ; i < coluna + 3 ; i++){
+                        tabuleiro[linha - 1][i - 1] = 3;
+                    }
+
+                    for(int i = 0 ; i < 10 ; i++){
+                        for(int j = 0 ; j < 10 ; j++){
+                        
+                            printf("%d ", tabuleiro[i][j]);
+                        }
+                    printf("\n");
+                    }
+                }
+                
+
+        }else if(opcao == 2){
+            linha = cordlinha();
+            coluna = cordcoluna();
+                if(tabuleiro[linha - 1][coluna - 1] == 3 || tabuleiro[linha][coluna - 1] == 3 || tabuleiro[linha + 1][coluna - 1] == 3 || linha > 8 || linha < 1 || coluna > 10 || coluna < 1 ){
+                    printf("Posicao invalida...");
+
+                }else{
+                    for(int i = linha ; i < linha + 3 ; i++){
+                        tabuleiro[i - 1][coluna - 1] = 3;
+                    }
+
+                    for(int i = 0 ; i < 10 ; i++){
+                        for(int j = 0 ; j < 10 ; j++){
+                        
+                            printf("%d ", tabuleiro[i][j]);
+                        }
+                    printf("\n");
+                    }
+            }
+
+        }else if(opcao == 3){
+            linha = cordlinha();
+            coluna = cordcoluna();
+                if(tabuleiro[linha - 1][coluna - 1] == 3 || tabuleiro[linha][coluna] == 3 || tabuleiro[linha + 1][coluna + 1] == 3 || linha > 8 || linha < 1 || coluna > 10 || coluna < 1 ){
+                    printf("Posicao invalida...");
+                    
+                }else{
+                    for(int i = linha, j = coluna ; i < linha + 3 ; i++, j++){
+                        tabuleiro[i - 1][j - 1] = 3;
+                    }
+
+                    for(int i = 0 ; i < 10 ; i++){
+                        for(int j = 0 ; j < 10 ; j++){
+                        
+                            printf("%d ", tabuleiro[i][j]);
+                        }
+                    printf("\n");
+
+                    }
+                }
+        rep++;
+        }
+    }
+}
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
     // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
